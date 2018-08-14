@@ -1,0 +1,60 @@
+#cloud-config
+#mongodb
+manage_etc_hosts: true
+fqdn: mongo.scivera.com
+hostname: mongo
+apt_update: true
+apt_upgrade: true
+
+packages:
+ - fontconfig
+ - clamav
+ - multitail
+ - git-core
+ - awscli
+ - tmpreaper
+ - fail2ban
+ - chrony
+
+groups:
+  - ubuntu: [deploy]
+  - deploy
+
+users:
+  - default
+  - name: deploy
+    gecos: deploy
+    primary-group: deploy
+    groups: admin
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCJCr/FCxC1BBf2wBvoThvNCaG5ito0pUM2mcbM+MfBO77T5xJn8b3uGw5OMOGcwf0zrYwx9ea/NSV22e0U4XhdYpFliSt2ddMGi2W4rnapChrRg2wWIR9pPb5csOQ+WDj071J1ueDWV1VNRxy0MrI3gOAflrhrE2oFxiaSB2K8YDolSRjj649zydyxe9qLkQfR3l84LNJX6ogMboY0Qf2LT/6xeCc9+g/p+lbKKzPhdj6dgzLurivVddf6qKw0bCG6hfIwBOH5HPo8kTRdET+Th43o1AAsl+w5Ox+BHo2JIkiVKZvAlm550lPdMPlrON8N3z/wYa1wWxmBFBHCYHoD dbg-pub
+      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA8pv6gEvjTcVW3H3qctn/xTb634DWvyA27Fsp7hNfCU/RG9zv41PulbAA+Lo8zTF/3Jc/kkkjuq8ig339eQQIR/fGvLfobobC8gdw+j1OYN9b7ztJTHmTbCkso0jidBQ7zMzf+RbtJOS1H54GPcBuBHlgcLw35AHQaayoamjFQnksvHqv1R3wMeC7RPbJtjM5YUJWUBk7NDxxCU5ybXBiA7gp1N3RWKBvEVTGKkQLzZUFfZEpbelxh7xx238WoskWEn35d80ODlDodlfCrseDpij2sbsuEw19XS3r9gZ5UR0N2JxTu+4qgCXC2Fnaq4Xm+zUlxTRIsXQD8USCbB0zyQ== jamieorc@jamieorc-mbp.local
+      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAmx+QKzlgfJEKuFhGxE9P+JdwCi2BzZfWItENJp0QGmdkBvg5FsTRmv1QaUwOuPGMhDQg6gc94jetgm8KnLtfG85iE4bVgZe//678NZp+qBqEz1ZKsMBu46dpDT0G/4IMmQq3wcdNdNgk554s+Hz+fwyzp/aGfAj3XTTBIAMC7kfXrXf+BbFZc9rQ2L+FpAk2yPF6+8m3LLj7t7dBj3NqUrIUGFbzTbqlBX2cFPMe8Tdf5W0k9IiKXkXZ8e20iFJhp+tHmHpjIOoK6NPL1cXGWGvb0UBDm2TBqfGWmkwdVca2z6IgiYI2AVynJP35fkQWmepwEfun5gbfIPRKHu5/9Q== deploy@scivera-main
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDObSKx8oerqeNeWgZ0QWslWMbL74Iiy11fF9KDIVp4DalU8iBEQH6efvY+IUpdSqU/Xeo6rj+0EXiUndxU/PZrFpDOzzQqyhtM8LH1MC3GYANhkawfPMpzNcYtFulg0jYacu0LVVZc+T3jXCaE2BUmn1qJqOG7EudoWVTfTXuyDQ/oZihFeg5V1LnoRwO2Jim3iHfet/rzqxn+pvulI78cJJVzOhLQOFk35RdVZZdlu1DtViLMx0hzdixgljAHCVtTlgQrJfo18bwj5CXLwBuDVbce9KP2F4KGXjt9QYK2bPUEaNL3EDSpOCI/JsuPQ46VvBqzcNipMBvhrtyT7ryCtr2/MHZ5V2JlHiGf8mHVtcS+uu+Xtio1m3+Xi+Bo1QC1/q5WDLkkFFx/S6sRieXhxLoEqlp2uQRIA0V3d2h+Ak5fJ9KIPLnmFXen82m5f8IP+AOyzbBVzSPKFldp1QOTjTTqhLeR1yHHuNUb1vpAl+8AXydi+4wxKLiwsA4YyN+FAs6CiETDJMXkL5g7ZztqdFFMoVowIeeAgTZ5gL5sGsup/cE5S6kz3bkRHgbUGnzJ8oqYjMXq8WONng1B/FFX1YSWJYhbcsZd9nYSQIDNAKkZ6kilsaBwsL6WiPHv95E0vSUsFffIYULbf028zXsTCldimyCmf/p/VmkEuRPxIw== vigneshkuppusamy@Vigneshs-MacBook-Pro.local
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDMSqMFX/cZxE3sL/KANzT372hFpb6tbeFtXuRX0Bv08IwUDGj8SUH+hzppcGOcORYjbhOjtOffg5eT3Dp/64kwOGiG1Ft89rHGDbL/mkECi1MH4kPMKp0EYqWl2dv5/pPJ0XI/nZgjPRtuZLqg6TsDuHHzMN1bR7qosgbBmhNlyHX1n9NBs+wMQ3Cj4FS1/ItnRH3nIcLiIX5eFb1cAcXD+EqJ3CbJ6puixZIgXrA4Dcw7/ze4lXz+8nP8Ecxvm+kXLegmljAH4gpgr42zZWwQzBjmss0zLgPPe7xPzwSDiawPCWHpSYS5gRZ6iis7O1k37SDnItp8zWbPIZMgqz9h markberrang@Marks-MacBook-Pro.local
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDJk/QnzBH6lFltYY1qS5qKKcjaAozcJ4hY05XewOBUqQxJxKFk+9RMO/uktCqJOOjQk76SqGlDu5blPZPLopcS/BH9Hvg9YWw+Vg3EWoR4/o1eOGsaELvIGbnXkg0nQmhNq1p+fYs4SKefFBCXI+KLyTkyxfl48Fg2IN84Qu5UuiD0jUWbeE5rYooD3cDUDXSMSuJDvTwWFLgLRsJbW8UjA0O7HT9oGSzEnTd8g2jaQWoUwzeMirWJZspJktM17N7Eu3eGwiHA4PZbqOJhPO8PCSrW9wApq4JiHcrZmm5XPViK/tqwDHNxvHqL/QPpMi+DyZL8QJVqPhX67Iux9oLj6D5rCFtK+JkhBhSd3M+0Jp8laMYQSkaxna8bMAZwoJx1XhcPf2FG3lZMM9CpRXE4zsb3iDyxPlzC+gLyVtxuwOj0LF12rIwezVXuePUpchWi/sVqmfAazVoGzyd7pWqEUOzG5IMyEysABa26Gb6MUGm8BmWZyWGegcprfUCaQHiG67GOkFxpjUpvniBwItnREUIw9SSZTZtrAOKiznNRpwwAGfbcsCTUefFIOUYIkyXR1dDYFkozUVuu7NLRGDyRttRXu029DuEuu+E178JTo55qKO1wZLINGTnsKbpj/zi/buuXwXwy1ys/Q4DsQ/xkYDRxF+f+FXW2618nhQMXLw== mtaisigue@gmail.com
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDf+gj5sIFYDbNt0VDtDk4qRKFICngldNVrgsdBrB3BTspRZvEc2O910jxyYPYtfTC6OxYtAhrmcyDB4lmF8iJu9lN6r9regmwgJONdLdPsxEgCS8wYREFWRWEVvtzmdEYiUXbcMKBCh4rF13NeYH1hvqw2FEe67XWXumCoqhH4xRiEtqOl+HZT4cnSqJJ7Eiixv2OcvKnoEaSTXP/Lwq4O+25xJYCsWrrH0FtE9oWWy203Da0prj7n+G8sgmA2ApDBJVgO6+4wLowbYqsuhSzl2IYKOU3F0ku9QQ4opNvamrwCcncGVFFrEbSb0PH0JqY0b2ClnvJmQTfuYEl/pLNJaOl+ehdhIHH4UeLHtLcI8aprNHRMCzBehZSMMesDoaCxeqDrIDjZnFT7hC4yIQbCZd4RW4X7W0LXiGGqRyuUIsn3Tjz8XkUudquugMFXVqlrImYy6s4jgl1/Z9sreAeVjPidhYoYJxxQ1Laau5/J6HiqNKOlL8lGkw0q9Dk5VCavUI00rEtVhZ2mvj3zFuEZxXrO3jpPWote29RowDXjvq2dCJAVKKwpGW8WOMfuTJcJCp2SI59sLpQV2XSLZnDc0vAQnWt+CKdToF2UKtIIo/6HeeIT3P2+hZiqYG+UOjgQIXrjzPOMS1uXNqDSTG6+FezyLHf2ZWFb80J9tyE0kw== inge.zelaya@gmail.com
+
+mounts:
+  - [ xvdf, /var/lib/mongodb, "auto", "defaults,nofail", "0", "2" ]
+
+system_info:
+   default_user:
+    name: Ubuntu
+    plain_text_passwd: 'ubuntu'
+    home: /home/ubuntu
+    shell: /bin/bash
+    lock_passwd: True
+    gecos: Ubuntu
+    groups: [adm, audio, cdrom, dialout, floppy, video, plugdev, dip, netdev]
+
+runcmd:
+ - mkdir -p /var/lib/mongodb
+ - dd if=/dev/zero of=/swap bs=1M count=10240
+ - mkswap /swap
+ - swapon /swap
+ - echo "/swap swap swap defaults 0 0" >> /etc/fstab
+ 
+final_message: "Whew! That was a lot of work and now the system is finally up, after $UPTIME seconds"
