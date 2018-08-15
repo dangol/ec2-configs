@@ -52,9 +52,11 @@ system_info:
 
 runcmd:
  - mkdir -p /var/lib/mongodb
- - dd if=/dev/zero of=/swap bs=1M count=10240
+ - dd if=/dev/zero of=/swap bs=1M count=11264
  - mkswap /swap
  - swapon /swap
  - echo "/swap swap swap defaults 0 0" >> /etc/fstab
+ - mkfs -t ext4 /dev/xvdf
+ - mount -a
  
 final_message: "Whew! That was a lot of work and now the system is finally up, after $UPTIME seconds"
