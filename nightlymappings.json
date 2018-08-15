@@ -8,18 +8,21 @@
 	{
 		"DeviceName": "/dev/sdf",
 		"Ebs": {
+		  "DeleteOnTermination": false,
 		  "VolumeSize": 125
 		}
 	},
 	{
 		"DeviceName": "/dev/sdg",
 		"Ebs": {
+		  "DeleteOnTermination": false,			
 		  "VolumeSize": 250
 		}
 	},
 	{
 		"DeviceName": "/dev/sdh",
 		"Ebs": {
+		  "DeleteOnTermination": false,			
 		  "VolumeSize": 250
 		}
 	}
