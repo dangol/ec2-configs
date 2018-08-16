@@ -13,22 +13,37 @@ SBNT=subnet-d32b3bef
 ID=$(aws $PRF ec2 run-instances --image-id $AMI --key-name dbg-pub $TRM8 --security-group-ids sg-bd8244cd sg-ffdc328f --user-data file://mongo-config.txt --instance-type $MNGTP --subnet-id $SBNT --block-device-mappings file://mongomappings.json --count 1 --associate-public-ip-address)
 MONGOID=$(echo $ID | jq -r '.Instances[].InstanceId')
 aws $PRF ec2 create-tags --resources $MONGOID --tags "Key=ENV,Value=prod" "Key=Name,Value=MongoDB"
+EIP=$(aws $PRF ec2 allocate-address | jq -r '.PublicIp')
+aws $PRF ec2 associate-address --instance-id $MONGOID --public-ip $EIP
+EIP=''
 # web
 ID=$(aws $PRF ec2 run-instances --image-id $AMI --key-name dbg-pub $TRM8 --security-group-ids sg-bd8244cd sg-ea3ad49a --user-data file://web-config.txt --instance-type $WEBTP --subnet-id $SBNT --block-device-mappings file://webmappings.json --count 1 --associate-public-ip-address)
 WEBID=$(echo $ID | jq -r '.Instances[].InstanceId')
 aws $PRF ec2 create-tags --resources $WEBID --tags "Key=ENV,Value=prod" "Key=Name,Value=Web"
+EIP=$(aws $PRF ec2 allocate-address | jq -r '.PublicIp')
+aws $PRF ec2 associate-address --instance-id $WEBOID --public-ip $EIP
+EIP=''
 # bos
 ID=$(aws $PRF ec2 run-instances --image-id $AMI --key-name dbg-pub $TRM8 --security-group-ids sg-bd8244cd sg-2e3ad45e --user-data file://bos-config.txt --instance-type $BOSTP --subnet-id $SBNT --block-device-mappings file://bosmappings.json --count 1 --associate-public-ip-address)
 BOSID=$(echo $ID | jq -r '.Instances[].InstanceId')
 aws $PRF ec2 create-tags --resources $BOSID --tags "Key=ENV,Value=prod" "Key=Name,Value=BOS"
+EIP=$(aws $PRF ec2 allocate-address | jq -r '.PublicIp')
+aws $PRF ec2 associate-address --instance-id $BOSID --public-ip $EIP
+EIP=''
 # RapidScreen
 ID=$(aws $PRF ec2 run-instances --image-id $AMI --key-name dbg-pub $TRM8 --security-group-ids sg-bd8244cd sg-ea3ad49a --user-data file://rs-config.txt --instance-type $RSTP --subnet-id $SBNT --block-device-mappings file://rsmappings.json --count 1 --associate-public-ip-address)
 RSID=$(echo $ID | jq -r '.Instances[].InstanceId')
 aws $PRF ec2 create-tags --resources $RSID --tags "Key=ENV,Value=prod" "Key=Name,Value=RadidScreen"
+EIP=$(aws $PRF ec2 allocate-address | jq -r '.PublicIp')
+aws $PRF ec2 associate-address --instance-id $RSID --public-ip $EIP
+EIP=''
 # Nightly
 ID=$(aws $PRF ec2 run-instances --image-id $AMI --key-name dbg-pub $TRM8 --security-group-ids sg-bd8244cd sg-2e3ad45e --user-data file://nightly-config.txt --instance-type $NGHTTP --subnet-id $SBNT --block-device-mappings file://nightlymappings.json --count 1 --associate-public-ip-address)
 NGHTID=$(echo $ID | jq -r '.Instances[].InstanceId')
 aws $PRF ec2 create-tags --resources $NGHTID --tags "Key=ENV,Value=prod" "Key=Name,Value=Nightly"
+EIP=$(aws $PRF ec2 allocate-address | jq -r '.PublicIp')
+aws $PRF ec2 associate-address --instance-id $NGHTID --public-ip $EIP
+EIP=''
 
 echo Mongo $MONGOID
 echo Web $WEBID
