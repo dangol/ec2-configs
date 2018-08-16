@@ -11,11 +11,13 @@ TRM8=--disable-api-termination
 SBNT=subnet-d32b3bef
 #mongo
 ID=$(aws $PRF ec2 run-instances --image-id $AMI --key-name dbg-pub $TRM8 --security-group-ids sg-bd8244cd sg-ffdc328f --user-data file://mongo-config.txt --instance-type $MNGTP --subnet-id $SBNT --block-device-mappings file://mongomappings.json --count 1 --associate-public-ip-address)
-MONGOID=$(echo $ID | jq -r '.Instances[].InstanceId')
+MONGOID=$(echo $ID | jq -r ".Instances[].InstanceId")
 aws $PRF ec2 create-tags --resources $MONGOID --tags "Key=ENV,Value=prod" "Key=Name,Value=MongoDB"
 EIP=$(aws $PRF ec2 allocate-address | jq -r '.PublicIp')
 aws $PRF ec2 associate-address --instance-id $MONGOID --public-ip $EIP
 EIP=''
+echo test
+exit 0
 # web
 ID=$(aws $PRF ec2 run-instances --image-id $AMI --key-name dbg-pub $TRM8 --security-group-ids sg-bd8244cd sg-ea3ad49a --user-data file://web-config.txt --instance-type $WEBTP --subnet-id $SBNT --block-device-mappings file://webmappings.json --count 1 --associate-public-ip-address)
 WEBID=$(echo $ID | jq -r '.Instances[].InstanceId')

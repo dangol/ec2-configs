@@ -19,8 +19,7 @@
 		  "DeleteOnTermination": false,			
 		  "VolumeSize": 250,
 		  "Encrypted": true,
-          "kmsKeyID": "arn:aws:kms:us-east-1:271564157543:key/93523c59-2912-4f0e-bffa-b3f1b2185f48"
-
+                  "KmsKeyId": "arn:aws:kms:us-east-1:271564157543:key/93523c59-2912-4f0e-bffa-b3f1b2185f48"
 		}
 	},
 	{
@@ -29,7 +28,7 @@
 		  "DeleteOnTermination": false,			
 		  "VolumeSize": 250,
 		  "Encrypted": true,
-          "kmsKeyID": "arn:aws:kms:us-east-1:271564157543:key/93523c59-2912-4f0e-bffa-b3f1b2185f48"
+                  "KmsKeyId": "arn:aws:kms:us-east-1:271564157543:key/93523c59-2912-4f0e-bffa-b3f1b2185f48"
   		}
 	}
 ]

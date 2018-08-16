@@ -2,7 +2,7 @@
 	{
 		"DeviceName": "/dev/sda1",
 		"Ebs": {
-          "DeleteOnTermination": false,			
+                  "DeleteOnTermination": false,			
 		  "VolumeSize": 85
 		}
 	}
