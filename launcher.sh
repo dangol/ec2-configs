@@ -24,7 +24,7 @@ aws $PRF ec2 create-tags --resources $BOSID --tags "Key=ENV,Value=prod" "Key=Nam
 # RapidScreen
 ID=$(aws $PRF ec2 run-instances --image-id $AMI --key-name dbg-pub $TRM8 --security-group-ids sg-bd8244cd sg-ea3ad49a --user-data file://rs-config.txt --instance-type $RSTP --subnet-id $SBNT --block-device-mappings file://rsmappings.json --count 1 --associate-public-ip-address)
 RSID=$(echo $ID | jq -r '.Instances[].InstanceId')
-aws $PRF ec2 create-tags --resources $RSID --tags "Key=ENV,Value=prod" "Key=Name,Value=RadidScreen"
+aws $PRF ec2 create-tags --resources $RSID --tags "Key=ENV,Value=prod" "Key=Name,Value=RapidScreen"
 # Nightly
 ID=$(aws $PRF ec2 run-instances --image-id $AMI --key-name dbg-pub $TRM8 --security-group-ids sg-bd8244cd sg-2e3ad45e --user-data file://nightly-config.txt --instance-type $NGHTTP --subnet-id $SBNT --block-device-mappings file://nightlymappings.json --count 1 --associate-public-ip-address)
 NGHTID=$(echo $ID | jq -r '.Instances[].InstanceId')
