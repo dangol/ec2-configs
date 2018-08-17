@@ -42,6 +42,17 @@ mounts:
   - [ xvdg, /home/deploy/backups, "auto", "defaults,nofail", "0", "2" ]
   - [ xvdh, /home/deploy/slow-backups, "auto", "defaults,nofail", "0", "2" ]
 
+fs_setup:
+  - label: data1
+    filesystem: 'ext4'
+    device: '/dev/xvdf'
+  - label: data2
+    filesystem: 'ext4'
+    device: '/dev/xvdg'
+  - label: data3
+    filesystem: 'ext4'
+    device: '/dev/xvdh'    
+
 system_info:
    default_user:
     name: Ubuntu
@@ -57,7 +68,6 @@ runcmd:
  - mkswap /swap
  - swapon /swap
  - echo "/swap swap swap defaults 0 0" >> /etc/fstab
- - "for LTR in {f..h}; do mkfs -t ext4 /dev/xvd${LTR}; done"
  - mount -a
  
 final_message: "Whew! That was a lot of work and now the system is finally up, after $UPTIME seconds"
